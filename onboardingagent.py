@@ -95,7 +95,7 @@ chat_model = load_chat_model()
 def load_vector_store():
     # Connect to the Vector Store
     vector_store = AstraDB(
-        embedding=OpenAIEmbeddings(),
+        embedding=OpenAIEmbeddings(openai_api_key=st.secrets['OPENAI_API_KEY']),
         collection_name="datamodelagent",
         api_endpoint=st.secrets['ASTRA_API_ENDPOINT'],
         token=st.secrets['ASTRA_TOKEN']
@@ -108,6 +108,8 @@ vector_store = load_vector_store()
 def load_retriever():
     # Get the retriever for the Chat Model
     retriever = vector_store.as_retriever(
+        return_source_documents=True,
+        verbose=True,
         search_kwargs={"k": 5}
     )
     return retriever
