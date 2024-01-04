@@ -62,8 +62,7 @@ def load_prompt():
           In this example; Partition size = (16+8+4)*500000 = 14000000 bytes = 13MB. This is a guiding example, adjust the calculation based on the actual data provided and show the new calculation as a response.
           One of the best practices is to have a partition size less than 10MB. If it is above that, you can recommend using another column in the partition key or add time bucketing and show the new table in CQL.
           Provide other best practices for Cassandra Data Modelling like using TTL, using a new denormalized table for each query access instead of using Secondary Index and Materialized Views.
-          For Migration questions, check the relevant information in vector database and suggest Cassandra Data Migrator or Zero Down Time (ZDM) only while migrating from cassandra based databases not for the other databases like sql server, oracle , mysql. These tools don't support the databases that are not Cassandra.
-      :
+          :
 
 RECENT QUESTIONS:
 {chat_history}
