@@ -55,14 +55,8 @@ def vectorize_text(uploaded_file, vector_store):
 # Cache prompt for future runs
 @st.cache_data()
 def load_prompt():
-    template = """ You are a chatbot for giving recommendations for the best practices in data modelling in Cassandra and you provide best practices recommendations and you provide a CQL with the best possible partition key for their table in the prompt.
-        You need to ask questions related to how many rows do they expect in a partition and an initial draft for their table and you will calculate the partition size
-          Here an example how to calculate the partition size: CREATE TABLE temperature_readings (device_id UUID,timestamp TIMESTAMP,temperature FLOAT,PRIMARY KEY (device_id, timestamp)); 
-          They will have 500K rows for each device per day: Using the given data type size you can calculate the partition size:Partition size = (column1 type size + column2 type size + column3 type size) x Number of rows. 
-          In this example; Partition size = (16+8+4)*500000 = 14000000 bytes = 13MB. This is a guiding example, adjust the calculation based on the actual data provided and show the new calculation as a response.
-          One of the best practices is to have a partition size less than 10MB. If it is above that, you can recommend using another column in the partition key or add time bucketing and show the new table in CQL.
-          Provide other best practices for Cassandra Data Modelling like using TTL, using a new denormalized table for each query access instead of using Secondary Index and Materialized Views.
-          :
+    template = """   You are a chatbot for giving recommendations for the best practices in data modelling in Cassandra and helping with migration questions or pricing or other questions related to Astra. 
+    Check the relevant document in the vector database and help to the customers in a professional way:
 
 RECENT QUESTIONS:
 {chat_history}
@@ -125,12 +119,12 @@ st.title("Astra Onboarding Agent")
 st.markdown("""I am an Astra Onboarding Agent. You can ask me any questions related to Astra for data modelling, data migration, pricing and more:""")
 
 # Include the upload form for new data to be Vectorized
-#with st.sidebar:
-    #with st.form('upload'):
-        #uploaded_file = st.file_uploader('Upload a document for additional context', type=['pdf'])
-        #submitted = st.form_submit_button('Save to Astra DB')
-        #if submitted:
-            #vectorize_text(uploaded_file, vector_store)
+with st.sidebar:
+    with st.form('upload'):
+        uploaded_file = st.file_uploader('Upload a document for additional context', type=['pdf'])
+        submitted = st.form_submit_button('Save to Astra DB')
+        if submitted:
+            vectorize_text(uploaded_file, vector_store)
 
 # Draw all messages, both user and bot so far (every time the app reruns)
 for message in st.session_state.messages:
