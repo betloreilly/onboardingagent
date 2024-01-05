@@ -119,12 +119,12 @@ st.title("Astra Onboarding Agent")
 st.markdown("""I am an Astra Onboarding Agent. You can ask me any questions related to Astra for data modelling, data migration, pricing and more:""")
 
 # Include the upload form for new data to be Vectorized
-with st.sidebar:
-    with st.form('upload'):
-        uploaded_file = st.file_uploader('Upload a document for additional context', type=['pdf'])
-        submitted = st.form_submit_button('Save to Astra DB')
-        if submitted:
-            vectorize_text(uploaded_file, vector_store)
+#with st.sidebar:
+    #with st.form('upload'):
+        #uploaded_file = st.file_uploader('Upload a document for additional context', type=['pdf'])
+        #submitted = st.form_submit_button('Save to Astra DB')
+        #if submitted:
+            #vectorize_text(uploaded_file, vector_store)
 
 # Draw all messages, both user and bot so far (every time the app reruns)
 for message in st.session_state.messages:
